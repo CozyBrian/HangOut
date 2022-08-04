@@ -1,35 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/views/Authentication/login.dart';
+import 'package:hangout/views/Authentication/sign-up.dart';
+import 'package:tab_container/tab_container.dart';
 
-class AuthenticationScreen extends StatelessWidget {
-  const AuthenticationScreen({Key? key}) : super(key: key);
+class AuthenticationScreen extends StatefulWidget {
+  @override
+  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
+}
+
+class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  late final TabContainerController _controller;
+
+  @override
+  void initState() {
+    _controller = TabContainerController(length: 2);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("HangOut"),
-      // ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("authentication"),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(),
-              child: const Text("HEllo"),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  height: 600,
+                  child: TabContainer(
+                      controller: _controller,
+                      tabs: const ["signup", "login"],
+                      children: [LoginView(), SignUpView()]),
+                )
+              ],
             ),
-            Container(
-              width: 100,
-              height: 50,
-              color: Colors.amber,
-              child: TextButton(
-                style: TextButton.styleFrom(),
-                onPressed: () {}, 
-                child: const Text("HEllo", style: TextStyle(color: Colors.white),)
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
