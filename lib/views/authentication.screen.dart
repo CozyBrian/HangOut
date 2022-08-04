@@ -34,8 +34,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: 600,
+                  height: 500,
                   child: TabContainer(
+                      radius: 10,
+                      color: Colors.black38,
+                      selectedTextStyle: const TextStyle(fontSize: 20),
+                      unselectedTextStyle: const TextStyle(fontSize: 15),
                       controller: _controller,
                       tabs: const ["signup", "login"],
                       children: [LoginView(), SignUpView()]),
