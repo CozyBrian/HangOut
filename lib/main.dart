@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hangout/views/home/Main.screen.dart';
+import 'package:hangout/views/Main.screen.dart';
 import './views/Authentication/authentication.screen.dart';
 
 void main() {

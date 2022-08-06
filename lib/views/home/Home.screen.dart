@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hangout/widgets/Home/profile.widget.dart';
 import 'package:hangout/widgets/Layout/TopNavBar.dart';
+import 'package:hangout/widgets/Layout/backImgae.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,17 +14,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/home1.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+      const BackGroundImage(image: "assets/images/home1.jpg"),
       Column(
         children: [
           const TopNavBar(title: "Hello Brian"),
+          const SizedBox(height: 100),
           Expanded(
             child: PageView.builder(
               itemCount: 4,
