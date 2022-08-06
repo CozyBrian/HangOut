@@ -14,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> images = [
     "images/home1.jpg",
     "images/home2.jpg",
-    "images/home3.jpg",
+    "assets/images/home3.jpg",
   ];
 
   void _handleIndexChanged(int value) {
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Stack(children: [
+      body: Stack(fit: StackFit.expand, children: [
         Positioned.fill(
           child: Image(
             fit: BoxFit.cover,
@@ -36,16 +36,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        const Center(
-          child: SizedBox(
-            width: 300,
-            height: 300,
-            child: Center(
-              child: Text(
-                "",
+        Column(
+          children: [
+            SafeArea(
+              child: Container(
+                height: 60,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.blue[200],
+                ),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.menu,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
+            )
+          ],
         ),
       ]),
       bottomNavigationBar: DotNavigationBar(
