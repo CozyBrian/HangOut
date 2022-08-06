@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:hangout/views/Friends/friends.screen.dart';
@@ -15,7 +16,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedTab = 0;
 
-  List<Widget> Screens = [
+  List<Widget> screens = [
     HomeScreen(),
     FriendsScreen(),
     ChatScreen(),
@@ -31,17 +32,17 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Stack(children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/home1.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
+      body: PageTransitionSwitcher(
+        duration: const Duration(milliseconds: 500),
+        transitionBuilder: (child, primaryAnimation, secondaryAnimation) =>
+            SharedAxisTransition(
+          transitionType: SharedAxisTransitionType.horizontal,
+          animation: primaryAnimation,
+          secondaryAnimation: secondaryAnimation,
+          child: child,
         ),
-        Screens[_selectedTab]
-      ]),
+        child: screens[_selectedTab],
+      ),
       bottomNavigationBar: DotNavigationBar(
         currentIndex: _selectedTab,
         onTap: _handleIndexChanged,
