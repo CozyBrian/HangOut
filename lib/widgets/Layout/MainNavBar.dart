@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class MainNavBar extends StatelessWidget {
   final String title;
-  const MainNavBar({required this.title});
+  final bool isDark;
+  const MainNavBar({required this.title, this.isDark = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,8 @@ class MainNavBar extends StatelessWidget {
                     width: double.infinity,
                     child: Text(
                       title,
-                      style: const TextStyle(
-                          color: Colors.white,
+                      style: TextStyle(
+                          color: isDark ? Colors.black : Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
@@ -36,10 +37,10 @@ class MainNavBar extends StatelessWidget {
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.menu,
                     size: 30,
-                    color: Colors.white,
+                    color: isDark ? Colors.black : Colors.white,
                   ),
                 ),
               ],

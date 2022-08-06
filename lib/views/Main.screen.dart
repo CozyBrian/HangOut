@@ -44,23 +44,28 @@ class _MainScreenState extends State<MainScreen> {
         child: screens[_selectedTab],
       ),
       bottomNavigationBar: DotNavigationBar(
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.1),
+            blurRadius: 50,
+            spreadRadius: 0,
+            offset: Offset(
+              0,
+              10,
+            ),
+          ),
+        ],
         currentIndex: _selectedTab,
         onTap: _handleIndexChanged,
-        // dotIndicatorColor: Colors.black,
         items: [
-          /// Home
           DotNavigationBarItem(
             icon: const Icon(Icons.home),
             selectedColor: Theme.of(context).primaryColor,
           ),
-
-          /// Likes
           DotNavigationBarItem(
             icon: const Icon(Icons.favorite_border),
             selectedColor: Theme.of(context).primaryColor,
           ),
-
-          /// Profile
           DotNavigationBarItem(
             icon: const Icon(Icons.chat_bubble),
             selectedColor: Theme.of(context).primaryColor,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/views/Main.screen.dart';
+import 'package:hangout/views/Settings/settings.screen.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -25,6 +27,13 @@ class MainDrawer extends StatelessWidget {
             leading: const Icon(Icons.home),
             title: const Text("Home"),
             onTap: () {
+              Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text("Profile"),
+            onTap: () {
               //Navigator.of(context).pushReplacementNamed("/");
             },
           ),
@@ -32,7 +41,8 @@ class MainDrawer extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text("Settings"),
             onTap: () {
-              //Navigator.of(context).pushReplacementNamed("/");
+              Navigator.of(context)
+                  .pushReplacementNamed(SettingsScreen.routeName);
             },
           ),
         ],
