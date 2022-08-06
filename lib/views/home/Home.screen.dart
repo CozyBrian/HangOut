@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hangout/widgets/Home/profile.widget.dart';
-import 'package:hangout/widgets/Layout/TopNavBar.dart';
+import 'package:hangout/widgets/Layout/MainNavBar.dart';
 import 'package:hangout/widgets/Layout/backImgae.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const BackGroundImage(image: "assets/images/home1.jpg"),
       Column(
         children: [
-          const TopNavBar(title: "Hello Brian"),
+          const MainNavBar(title: "Hello Brian"),
           const SizedBox(height: 100),
           Expanded(
             child: PageView.builder(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hangout/widgets/Friends/friendListTile.dart';
-import 'package:hangout/widgets/Layout/TopNavBar.dart';
+import 'package:hangout/widgets/Layout/MainNavBar.dart';
 import 'package:hangout/widgets/Layout/backImgae.dart';
 
 class FriendsScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class FriendsScreen extends StatelessWidget {
       const BackGroundImage(image: "assets/images/home2.jpg"),
       Column(
         children: [
-          const TopNavBar(title: "Friends"),
+          const MainNavBar(title: "Friends"),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: Container(

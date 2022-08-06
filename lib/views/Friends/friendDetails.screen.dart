@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:hangout/widgets/Layout/TopNavBar.dart';
 
 class FriendDetailScreen extends StatelessWidget {
   static String routeName = "/friend-detail";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final RouteArgs = ModalRoute.of(context)?.settings.arguments as String;
+
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: const [TopNavBar(title: "Hello")],
+        ),
+      ),
+    );
   }
 }
