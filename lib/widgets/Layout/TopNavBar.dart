@@ -7,6 +7,7 @@ class TopNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         width: double.infinity,
