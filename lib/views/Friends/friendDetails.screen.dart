@@ -11,7 +11,7 @@ class FriendDetailScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Column(
-          children: const [TopNavBar(title: "Hello")],
+          children: [TopNavBar(title: RouteArgs)],
         ),
       ),
     );

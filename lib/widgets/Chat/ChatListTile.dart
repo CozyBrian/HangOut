@@ -8,7 +8,8 @@ class ChatListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(DirectChatScreen.routeName);
+        Navigator.of(context)
+            .pushNamed(DirectChatScreen.routeName, arguments: text);
       },
       child: ListTile(
         leading: Container(

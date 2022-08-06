@@ -9,7 +9,8 @@ class FriendListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(FriendDetailScreen.routeName);
+        Navigator.of(context)
+            .pushNamed(FriendDetailScreen.routeName, arguments: text);
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

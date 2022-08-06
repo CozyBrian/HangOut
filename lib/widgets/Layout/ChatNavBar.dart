@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class TopNavBar extends StatelessWidget {
+class ChatNavBar extends StatelessWidget {
   final String title;
-  const TopNavBar({required this.title});
+  const ChatNavBar({required this.title});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         width: double.infinity,
         child: Column(
           children: [
@@ -26,19 +26,26 @@ class TopNavBar extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
+                Container(
+                  height: 35,
+                  width: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.blue,
+                  ),
+                ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 4,
-                      vertical: 4,
                     ),
                     width: double.infinity,
                     child: Text(
                       title,
                       style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
