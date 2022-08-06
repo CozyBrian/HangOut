@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:hangout/views/Friends/friends.screen.dart';
+import 'package:hangout/views/chat/chat.screen.dart';
 import 'package:hangout/views/home/Home.screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,10 +14,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedTab = 0;
 
-  List<String> images = [
-    "assets/images/home1.jpg",
-    "assets/images/home2.jpg",
-    "assets/images/home3.jpg",
+  List<Widget> Screens = [
+    HomeScreen(),
+    FriendsScreen(),
+    ChatScreen(),
   ];
 
   void _handleIndexChanged(int value) {
@@ -37,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
         ),
-        HomeScreen(),
+        Screens[_selectedTab]
       ]),
       bottomNavigationBar: DotNavigationBar(
         currentIndex: _selectedTab,
@@ -62,6 +64,21 @@ class _MainScreenState extends State<MainScreen> {
             selectedColor: Colors.teal,
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: SafeArea(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+            child: const Text(
+              "H A N G O U T",
+              style: TextStyle(
+                fontSize: 23,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
