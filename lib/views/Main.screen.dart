@@ -51,19 +51,19 @@ class _MainScreenState extends State<MainScreen> {
           /// Home
           DotNavigationBarItem(
             icon: const Icon(Icons.home),
-            selectedColor: Colors.purple,
+            selectedColor: Theme.of(context).primaryColor,
           ),
 
           /// Likes
           DotNavigationBarItem(
             icon: const Icon(Icons.favorite_border),
-            selectedColor: Colors.pink,
+            selectedColor: Theme.of(context).primaryColor,
           ),
 
           /// Profile
           DotNavigationBarItem(
             icon: const Icon(Icons.chat_bubble),
-            selectedColor: Colors.teal,
+            selectedColor: Theme.of(context).primaryColor,
           ),
         ],
       ),

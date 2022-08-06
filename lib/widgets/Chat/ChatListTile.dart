@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/views/chat/directChat.screen.dart';
 
 class ChatListTile extends StatelessWidget {
   final String text;
@@ -6,7 +7,9 @@ class ChatListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(DirectChatScreen.routeName);
+      },
       child: ListTile(
         leading: Container(
           height: 50,

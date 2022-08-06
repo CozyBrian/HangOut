@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/views/Friends/friendDetails.screen.dart';
 
 class FriendListTile extends StatelessWidget {
   final String text;
@@ -7,7 +8,9 @@ class FriendListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(FriendDetailScreen.routeName);
+      },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 3,

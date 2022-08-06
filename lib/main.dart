@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/views/Friends/friendDetails.screen.dart';
 import 'package:hangout/views/Main.screen.dart';
+import 'package:hangout/views/chat/directChat.screen.dart';
 import './views/Authentication/authentication.screen.dart';
 
 void main() {
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
       home: AuthenticationScreen(),
       routes: {
         MainScreen.routeName: (context) => MainScreen(),
+        FriendDetailScreen.routeName: (context) => FriendDetailScreen(),
+        DirectChatScreen.routeName: (context) => DirectChatScreen(),
       },
     );
   }
