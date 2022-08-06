@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hangout/views/home/Home.screen.dart';
+import 'package:hangout/views/home/Main.screen.dart';
 
 class SignUpView extends StatelessWidget {
   @override
@@ -86,7 +86,7 @@ class SignUpView extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context)
-                    .pushReplacementNamed(HomeScreen.routeName);
+                    .pushReplacementNamed(MainScreen.routeName);
               },
               child: const Text(
                 "Sign Up",
