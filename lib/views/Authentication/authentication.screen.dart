@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hangout/views/Authentication/login.dart';
-import 'package:hangout/views/Authentication/sign-up.dart';
 import 'package:tab_container/tab_container.dart';
+
+import 'login.dart';
+import 'sign-up.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   @override
   State<AuthenticationScreen> createState() => _AuthenticationScreenState();
+
+  static String routeName = "/Auth-Screen";
 }
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
@@ -37,12 +40,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   height: 500,
                   child: TabContainer(
                       radius: 10,
-                      color: Colors.black38,
+                      color: const Color.fromARGB(15, 0, 0, 0),
                       selectedTextStyle: const TextStyle(fontSize: 20),
                       unselectedTextStyle: const TextStyle(fontSize: 15),
                       controller: _controller,
                       tabs: const ["signup", "login"],
-                      children: [LoginView(), SignUpView()]),
+                      children: [SignUpView(), LoginView()]),
                 )
               ],
             ),

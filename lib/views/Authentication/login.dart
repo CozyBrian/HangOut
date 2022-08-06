@@ -26,7 +26,7 @@ class LoginView extends StatelessWidget {
               style: TextStyle(fontSize: 20),
               cursorColor: Colors.black,
               decoration: InputDecoration(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.mail),
                 hintText: "Email",
                 border: InputBorder.none,
               ),

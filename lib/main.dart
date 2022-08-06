@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hangout/views/authentication.screen.dart';
+import 'package:hangout/views/home/Home.screen.dart';
+import './views/Authentication/authentication.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       home: AuthenticationScreen(),
+      routes: {
+        HomeScreen.routeName: (context) => HomeScreen(),
+      },
     );
   }
 }
