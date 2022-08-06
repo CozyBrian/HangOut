@@ -3,6 +3,7 @@ import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:hangout/views/Friends/friends.screen.dart';
 import 'package:hangout/views/chat/chat.screen.dart';
 import 'package:hangout/views/home/Home.screen.dart';
+import 'package:hangout/widgets/Layout/Main-Drawer.dart';
 
 class MainScreen extends StatefulWidget {
   static String routeName = "/Main-Screen";
@@ -65,21 +66,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            child: const Text(
-              "H A N G O U T",
-              style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ),
+      drawer: MainDrawer(),
     );
   }
 }
