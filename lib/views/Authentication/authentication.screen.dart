@@ -44,8 +44,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       selectedTextStyle: const TextStyle(fontSize: 20),
                       unselectedTextStyle: const TextStyle(fontSize: 15),
                       controller: _controller,
-                      tabs: const ["signup", "login"],
-                      children: [SignUpView(), LoginView()]),
+                      tabs: const ["login", "signup"],
+                      children: [LoginView(), SignUpView()]),
                 )
               ],
             ),

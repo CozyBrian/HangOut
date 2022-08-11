@@ -1,7 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:hangout/views/Main.screen.dart';
+import 'package:hangout/providers/AuthProvider.dart';
+import 'package:provider/provider.dart';
 
-class SignUpView extends StatelessWidget {
+class SignUpView extends StatefulWidget {
+  @override
+  State<SignUpView> createState() => _SignUpViewState();
+}
+
+class _SignUpViewState extends State<SignUpView> {
+  final _usernameTextController = TextEditingController();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  var _isLoading = false;
+
+  Future<void> _Submit() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      Provider.of<AuthProvider>(context, listen: false).signUp(
+        _usernameTextController.text.trim(),
+        _emailTextController.text.trim(),
+        _passwordTextController.text.trim(),
+      );
+    } catch (e) {
+      //print(e);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,10 +53,11 @@ class SignUpView extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               border: Border.all(color: Colors.purple),
             ),
-            child: const TextField(
-              style: TextStyle(fontSize: 20),
+            child: TextField(
+              style: const TextStyle(fontSize: 20),
               cursorColor: Colors.black,
-              decoration: InputDecoration(
+              controller: _usernameTextController,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.person),
                 hintText: "Username",
                 border: InputBorder.none,
@@ -43,10 +74,11 @@ class SignUpView extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               border: Border.all(color: Colors.purple),
             ),
-            child: const TextField(
-              style: TextStyle(fontSize: 20),
+            child: TextField(
+              style: const TextStyle(fontSize: 20),
               cursorColor: Colors.black,
-              decoration: InputDecoration(
+              controller: _emailTextController,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.mail),
                 hintText: "Email",
                 border: InputBorder.none,
@@ -62,11 +94,12 @@ class SignUpView extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(color: Colors.purple)),
-            child: const TextField(
+            child: TextField(
               cursorColor: Colors.black,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
               obscureText: true,
-              decoration: InputDecoration(
+              controller: _passwordTextController,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.key),
                 hintText: "Password",
                 border: InputBorder.none,
@@ -84,10 +117,7 @@ class SignUpView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
-              onPressed: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(MainScreen.routeName);
-              },
+              onPressed: () => _Submit(),
               child: const Text(
                 "Sign Up",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

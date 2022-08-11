@@ -1,6 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/providers/AuthProvider.dart';
+import 'package:provider/provider.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  var _isLoading = false;
+
+  Future<void> _Submit() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      Provider.of<AuthProvider>(context, listen: false).login(
+          _emailTextController.text.trim(),
+          _passwordTextController.text.trim());
+    } catch (e) {
+      //print(e);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,10 +50,11 @@ class LoginView extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               border: Border.all(color: Colors.purple),
             ),
-            child: const TextField(
-              style: TextStyle(fontSize: 20),
+            child: TextField(
+              style: const TextStyle(fontSize: 20),
               cursorColor: Colors.black,
-              decoration: InputDecoration(
+              controller: _emailTextController,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.mail),
                 hintText: "Email",
                 border: InputBorder.none,
@@ -41,11 +70,12 @@ class LoginView extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(color: Colors.purple)),
-            child: const TextField(
+            child: TextField(
               cursorColor: Colors.black,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
               obscureText: true,
-              decoration: InputDecoration(
+              controller: _passwordTextController,
+              decoration: const InputDecoration(
                 icon: Icon(Icons.key),
                 hintText: "Password",
                 border: InputBorder.none,
@@ -63,7 +93,7 @@ class LoginView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () => _Submit(),
               child: const Text(
                 "Login",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
