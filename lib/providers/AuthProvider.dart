@@ -27,8 +27,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> _authenticate(
       String? username, String email, String password, String segment) async {
-    var url =
-        Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/auth/$segment/");
+    var url = Uri.parse("http://localhost:3000/v1/auth/$segment/");
 
     Map<String, String> customHeaders = {"content-type": "application/json"};
     try {
