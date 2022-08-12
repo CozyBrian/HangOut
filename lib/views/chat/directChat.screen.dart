@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/Models/user.dart';
 import 'package:hangout/widgets/Chat/ChatInputBar.dart';
 import 'package:hangout/widgets/Chat/messageLIst.dart';
 import 'package:hangout/widgets/Layout/ChatNavBar.dart';
@@ -8,13 +9,14 @@ class DirectChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RouteArgs = ModalRoute.of(context)?.settings.arguments as String;
+    final RouteArgs = ModalRoute.of(context)?.settings.arguments as User;
+
     return Scaffold(
       body: Column(
         children: [
-          ChatNavBar(title: RouteArgs),
+          ChatNavBar(title: RouteArgs.username),
           MessageList(),
-          ChatInputBar(),
+          ChatInputBar(RouteArgs),
         ],
       ),
     );

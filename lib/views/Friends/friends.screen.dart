@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/widgets/Friends/friendListTile.dart';
 import 'package:hangout/widgets/Layout/MainNavBar.dart';
 import 'package:hangout/widgets/Layout/backImgae.dart';
+import 'package:provider/provider.dart';
 
-class FriendsScreen extends StatelessWidget {
+class FriendsScreen extends StatefulWidget {
+  @override
+  State<FriendsScreen> createState() => _FriendsScreenState();
+}
+
+class _FriendsScreenState extends State<FriendsScreen> {
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<DataProvider>(context).getUsers().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<DataProvider>(context).users;
     return Stack(children: [
       const BackGroundImage(image: "assets/images/home2.jpg"),
       Column(
@@ -43,9 +70,9 @@ class FriendsScreen extends StatelessWidget {
               ),
               child: ListView.builder(
                 padding: const EdgeInsets.only(top: 14, bottom: 120),
-                itemCount: 5,
+                itemCount: data.length,
                 itemBuilder: ((context, index) => FriendListTile(
-                      "Hello $index",
+                      data[index],
                     )),
               ),
             ),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/Models/user.dart';
 import 'package:hangout/views/Friends/friendDetails.screen.dart';
 
 class FriendListTile extends StatelessWidget {
-  final String text;
-  const FriendListTile(this.text);
+  final User user;
+  const FriendListTile(this.user);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(FriendDetailScreen.routeName, arguments: text);
+            .pushNamed(FriendDetailScreen.routeName, arguments: user);
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -34,7 +35,7 @@ class FriendListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      text,
+                      user.username,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w600),
                     ),

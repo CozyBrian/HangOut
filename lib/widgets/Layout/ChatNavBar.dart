@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/providers/DataProvider.dart';
+import 'package:provider/provider.dart';
 
 class ChatNavBar extends StatelessWidget {
   final String title;
@@ -6,6 +8,7 @@ class ChatNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<DataProvider>(context);
     return SafeArea(
       bottom: false,
       child: Container(
@@ -18,6 +21,7 @@ class ChatNavBar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
+                    data.clearMessages();
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(
