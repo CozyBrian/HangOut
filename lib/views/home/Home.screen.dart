@@ -47,12 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 100),
           Expanded(
             child: PageView.builder(
-              itemCount: 4,
+              itemCount: data.users.length,
               //controller: PageController(viewportFraction: 0.7),
               onPageChanged: (int index) => setState(() => _index = index),
               itemBuilder: (_, i) {
                 return Transform.scale(
-                    scale: i == _index ? 1 : 0.9, child: Profile());
+                  scale: i == _index ? 1 : 0.9,
+                  child: Profile(data.users[i]),
+                );
               },
             ),
           )

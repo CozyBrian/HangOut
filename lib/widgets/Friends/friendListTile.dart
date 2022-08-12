@@ -15,7 +15,7 @@ class FriendListTile extends StatelessWidget {
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 3,
+        elevation: 1,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

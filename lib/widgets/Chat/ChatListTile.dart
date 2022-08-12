@@ -37,6 +37,12 @@ class ChatListTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               color: Colors.blue,
             ),
+            child: Center(
+              child: Text(
+                user.username[0],
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
           ),
           title: Text(user.username),
           subtitle: const Text("Okay Messasge here"),
