@@ -12,17 +12,35 @@ class ChatListTile extends StatelessWidget {
         Navigator.of(context)
             .pushNamed(DirectChatScreen.routeName, arguments: user);
       },
-      child: ListTile(
-        leading: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.blue,
-          ),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: const [
+            BoxShadow(
+              color: Color.fromRGBO(149, 157, 165, 0.2),
+              blurRadius: 24,
+              spreadRadius: 0,
+              offset: Offset(
+                0,
+                8,
+              ),
+            ),
+          ],
         ),
-        title: Text(user.username),
-        subtitle: const Text("Okay Messasge here"),
+        child: ListTile(
+          leading: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.blue,
+            ),
+          ),
+          title: Text(user.username),
+          subtitle: const Text("Okay Messasge here"),
+        ),
       ),
     );
   }

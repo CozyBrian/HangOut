@@ -21,8 +21,8 @@ class ChatNavBar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    data.clearMessages();
                     Navigator.of(context).pop();
+                    data.clearMessages();
                   },
                   icon: const Icon(
                     Icons.arrow_back_ios,

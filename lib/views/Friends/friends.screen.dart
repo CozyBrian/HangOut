@@ -11,24 +11,24 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  var _isInit = true;
-  var _isLoading = false;
+  // var _isInit = true;
+  // var _isLoading = false;
 
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<DataProvider>(context).getUsers().then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   if (_isInit) {
+  //     setState(() {
+  //       _isLoading = true;
+  //     });
+  //     Provider.of<DataProvider>(context).getUsers().then((_) {
+  //       setState(() {
+  //         _isLoading = false;
+  //       });
+  //     });
+  //   }
+  //   _isInit = false;
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
       const BackGroundImage(image: "assets/images/home2.jpg"),
       Column(
         children: [
-          const MainNavBar(title: "Friends"),
+          const MainNavBar(
+            title: "Friends",
+            isDark: true,
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: Container(
@@ -62,7 +65,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               decoration: const BoxDecoration(
-                color: Colors.white,
+                //color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),

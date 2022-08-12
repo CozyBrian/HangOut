@@ -9,6 +9,7 @@ import 'package:hangout/Models/user.dart';
 class DataProvider with ChangeNotifier {
   final String? _accessToken;
   final String? _user_id;
+  String? _username;
 
   List<User> _users;
   List<User> _conversations;
@@ -22,6 +23,10 @@ class DataProvider with ChangeNotifier {
     return _user_id;
   }
 
+  String? get username {
+    return _username;
+  }
+
   List<User> get conversations {
     return _conversations;
   }
@@ -30,8 +35,8 @@ class DataProvider with ChangeNotifier {
     return _messages;
   }
 
-  DataProvider(this._user_id, this._accessToken, this._users, this._messages,
-      this._conversations);
+  DataProvider(this._user_id, this._username, this._accessToken, this._users,
+      this._messages, this._conversations);
 
   Future<void> getUsers() async {
     _users = [];
@@ -54,10 +59,12 @@ class DataProvider with ChangeNotifier {
     responseData.forEach((element) {
       var user = User(element['user_id'], element['username']);
       if (user.user_id == _user_id) {
+        _username = user.username;
         return;
       }
       _users.add(user);
     });
+    getConversations();
     notifyListeners();
   }
 
@@ -121,13 +128,11 @@ class DataProvider with ChangeNotifier {
     );
 
     final responseData = json.decode(response.body);
-    print(responseData);
     _messages = [];
     getMessages(incomingId);
   }
 
   Future<void> getConversations() async {
-    getUsers();
     var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
 
     Map<String, String> customHeaders = {

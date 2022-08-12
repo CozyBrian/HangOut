@@ -37,11 +37,14 @@ class _ChatScreenState extends State<ChatScreen> {
       const BackGroundImage(image: "assets/images/home3.jpg"),
       Column(
         children: [
-          const MainNavBar(title: "Chats"),
+          const MainNavBar(
+            title: "Chats",
+            isDark: true,
+          ),
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: 500,
-              color: Colors.white,
+              //color: Colors.white,
               child: ListView.builder(
                 padding: const EdgeInsets.only(top: 14, bottom: 120),
                 itemCount: data.length,

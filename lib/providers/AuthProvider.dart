@@ -30,8 +30,6 @@ class AuthProvider with ChangeNotifier {
     var url = Uri.parse("http://localhost:3000/v1/auth/$segment/");
 
     Map<String, String> customHeaders = {"content-type": "application/json"};
-
-    print(token);
     try {
       final response = await http.post(
         url,
@@ -62,9 +60,7 @@ class AuthProvider with ChangeNotifier {
         'refreshToken': _refreshToken,
         'user_id': _user_id,
       });
-      prefs
-          .setString('userData', userData)
-          .then((value) => print("value saved: $value"));
+      prefs.setString('userData', userData);
     } catch (e) {
       print(e);
     }
@@ -76,6 +72,15 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     return _authenticate(null, email, password, "signIn");
+  }
+
+  Future<void> logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('userData');
+    _accessToken = null;
+    _refreshToken = null;
+    _user_id = null;
+    notifyListeners();
   }
 
   Future<bool> tryAutoLogin() async {
