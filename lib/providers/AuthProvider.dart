@@ -81,6 +81,7 @@ class AuthProvider with ChangeNotifier {
     _accessToken = null;
     _refreshToken = null;
     _user_id = null;
+
     notifyListeners();
   }
 
