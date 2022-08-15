@@ -3,6 +3,7 @@ import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/widgets/Home/profile.widget.dart';
 import 'package:hangout/widgets/Layout/MainNavBar.dart';
 import 'package:hangout/widgets/Layout/backImgae.dart';
+import 'package:hangout/widgets/Layout/offline.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
 
   var _isInit = true;
+  var _isOffline = false;
   var _isLoading = false;
 
   @override
@@ -26,8 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _isLoading = false;
         });
+      }).catchError((e) {
+        setState(() {
+          _isOffline = true;
+        });
       });
-      Provider.of<DataProvider>(context).getConversations();
+      Provider.of<DataProvider>(context).getConversations().catchError((e) {});
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -44,20 +50,25 @@ class _HomeScreenState extends State<HomeScreen> {
             title: "Hello ${data.username}",
             isDark: true,
           ),
-          const SizedBox(height: 100),
-          Expanded(
-            child: PageView.builder(
-              itemCount: data.users.length,
-              //controller: PageController(viewportFraction: 0.7),
-              onPageChanged: (int index) => setState(() => _index = index),
-              itemBuilder: (_, i) {
-                return Transform.scale(
-                  scale: i == _index ? 1 : 0.9,
-                  child: Profile(data.users[i]),
-                );
-              },
-            ),
-          )
+          if (!_isOffline) const SizedBox(height: 100),
+          _isOffline
+              ? OfflineView()
+              : _isLoading
+                  ? const CircularProgressIndicator.adaptive()
+                  : Expanded(
+                      child: PageView.builder(
+                        itemCount: data.users.length,
+                        //controller: PageController(viewportFraction: 0.7),
+                        onPageChanged: (int index) =>
+                            setState(() => _index = index),
+                        itemBuilder: (_, i) {
+                          return Transform.scale(
+                            scale: i == _index ? 1 : 0.9,
+                            child: Profile(data.users[i]),
+                          );
+                        },
+                      ),
+                    ),
         ],
       ),
     ]);

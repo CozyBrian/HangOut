@@ -61,25 +61,35 @@ class _FriendsScreenState extends State<FriendsScreen> {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: const BoxDecoration(
-                //color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
+          data.isEmpty
+              ? const Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 100),
+                    child: Center(
+                      child:
+                          Text('Friends will appear here after you add them.'),
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: const BoxDecoration(
+                      //color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25),
+                      ),
+                    ),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(top: 14, bottom: 120),
+                      itemCount: data.length,
+                      itemBuilder: ((context, index) => FriendListTile(
+                            data[index],
+                          )),
+                    ),
+                  ),
                 ),
-              ),
-              child: ListView.builder(
-                padding: const EdgeInsets.only(top: 14, bottom: 120),
-                itemCount: data.length,
-                itemBuilder: ((context, index) => FriendListTile(
-                      data[index],
-                    )),
-              ),
-            ),
-          ),
         ],
       ),
     ]);

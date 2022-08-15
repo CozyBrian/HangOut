@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:hangout/utils/http-exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/message.dart';
@@ -38,34 +39,52 @@ class DataProvider with ChangeNotifier {
   DataProvider(this._user_id, this._username, this._accessToken, this._users,
       this._messages, this._conversations);
 
+  Future<bool> getConnection() async {
+    try {
+      var url = Uri.parse("https://www.google.com.gh");
+
+      final response = await http.get(url);
+      print("Online");
+      return true;
+    } catch (e) {
+      print("Offline");
+      return false;
+    }
+  }
+
   Future<void> getUsers() async {
-    _users = [];
-    var url = Uri.parse("http://localhost:3000/v1/users/");
-    Map<String, String> customHeaders = {
-      "content-type": "application/json",
-      "Authorization": "Bearer $_accessToken"
-    };
+    try {
+      _users = [];
+      var url = Uri.parse("http://localhost:3000/v1/users/");
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
 
-    final response = await http.get(
-      url,
-      headers: customHeaders,
-    );
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
 
-    final responseData = json.decode(response.body);
+      final responseData = json.decode(response.body);
 
-    // if (responseData['error'] != null) {
-    //   //throw HttpException(responseData['error']['message']);
-    // }
-    responseData.forEach((element) {
-      var user = User(element['user_id'], element['username']);
-      if (user.user_id == _user_id) {
-        _username = user.username;
-        return;
-      }
-      _users.add(user);
-    });
-    getConversations();
-    notifyListeners();
+      print(responseData);
+      // if (responseData['error'] != null) {
+      //   throw HttpException(responseData['error']);
+      // }
+      responseData.forEach((element) {
+        var user = User(element['user_id'], element['username']);
+        if (user.user_id == _user_id) {
+          _username = user.username;
+          return;
+        }
+        _users.add(user);
+      });
+      getConversations();
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void clearMessages() {
@@ -93,6 +112,11 @@ class DataProvider with ChangeNotifier {
     );
 
     final responseData = json.decode(response.body);
+
+    // if (responseData['error'] != null) {
+    //   throw HttpException(responseData['error']);
+    // }
+
     _messages = [];
 
     responseData.forEach((element) {
@@ -128,33 +152,46 @@ class DataProvider with ChangeNotifier {
     );
 
     final responseData = json.decode(response.body);
+
+    if (responseData['error'] != null) {
+      throw HttpException(responseData['error']);
+    }
+
     _messages = [];
     getMessages(incomingId);
   }
 
   Future<void> getConversations() async {
-    var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
 
-    Map<String, String> customHeaders = {
-      "content-type": "application/json",
-      "Authorization": "Bearer $_accessToken"
-    };
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
 
-    final response = await http.get(
-      url,
-      headers: customHeaders,
-    );
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
 
-    final responseData = json.decode(response.body);
+      final responseData = json.decode(response.body);
 
-    _conversations = [];
-    for (var element in _users) {
-      responseData.forEach((item) {
-        if (element.user_id == item['user_id']) {
-          conversations.add(element);
-        }
-      });
+      // if (responseData['error'] != null) {
+      //   throw HttpException(responseData['error']);
+      // }
+
+      _conversations = [];
+      for (var element in _users) {
+        responseData.forEach((item) {
+          if (element.user_id == item['user_id']) {
+            conversations.add(element);
+          }
+        });
+      }
+      notifyListeners();
+    } catch (e) {
+      rethrow;
     }
-    notifyListeners();
   }
 }
