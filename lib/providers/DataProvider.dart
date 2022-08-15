@@ -52,7 +52,7 @@ class DataProvider with ChangeNotifier {
   Future<void> getUsers() async {
     try {
       _users = [];
-      var url = Uri.parse("http://localhost:3000/v1/users/");
+      var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
       Map<String, String> customHeaders = {
         "content-type": "application/json",
         "Authorization": "Bearer $_accessToken"
@@ -89,7 +89,8 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> getMessages(String incomingId) async {
-    var url = Uri.parse("http://localhost:3000/v1/messages/$incomingId");
+    var url = Uri.parse(
+        "https://tesla-hangout-app.herokuapp.com/v1/messages/$incomingId");
 
     Map<String, String> customHeaders = {
       "content-type": "application/json",
@@ -128,7 +129,7 @@ class DataProvider with ChangeNotifier {
     if (msg == '') {
       return;
     }
-    var url = Uri.parse("http://localhost:3000/v1/messages/");
+    var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/messages/");
 
     Map<String, String> customHeaders = {
       "content-type": "application/json",
@@ -159,7 +160,8 @@ class DataProvider with ChangeNotifier {
 
   Future<void> getConversations() async {
     try {
-      var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
+      var url = Uri.parse(
+          "https://tesla-hangout-app.herokuapp.com/v1/messages/$user_id");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
