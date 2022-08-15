@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:hangout/utils/http-exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/message.dart';
@@ -44,10 +43,8 @@ class DataProvider with ChangeNotifier {
       var url = Uri.parse("https://www.google.com.gh");
 
       final response = await http.get(url);
-      print("Online");
       return true;
     } catch (e) {
-      print("Offline");
       return false;
     }
   }
@@ -68,7 +65,6 @@ class DataProvider with ChangeNotifier {
 
       final responseData = json.decode(response.body);
 
-      print(responseData);
       // if (responseData['error'] != null) {
       //   throw HttpException(responseData['error']);
       // }
@@ -153,9 +149,9 @@ class DataProvider with ChangeNotifier {
 
     final responseData = json.decode(response.body);
 
-    if (responseData['error'] != null) {
-      throw HttpException(responseData['error']);
-    }
+    // if (responseData['error'] != null) {
+    //   throw HttpException(responseData['error']);
+    // }
 
     _messages = [];
     getMessages(incomingId);

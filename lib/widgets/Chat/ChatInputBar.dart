@@ -17,7 +17,6 @@ class ChatInputBar extends StatelessWidget {
         child: Row(children: [
           Expanded(
             child: Container(
-              height: 40,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(103, 214, 214, 214),
                 borderRadius: BorderRadius.circular(15),
@@ -27,6 +26,8 @@ class ChatInputBar extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
                 cursorColor: Colors.black,
                 controller: textBoxController,
+                maxLines: 4,
+                minLines: 1,
                 decoration: const InputDecoration(
                   hintText: "Send a Message",
                   border: InputBorder.none,

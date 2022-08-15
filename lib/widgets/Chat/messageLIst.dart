@@ -50,7 +50,7 @@ class _MessageListState extends State<MessageList> {
                 color: data[index].outgoing_id != user.user_id
                     ? Theme.of(context).primaryColor
                     : const Color(0xFFE8E8EE),
-                tail: true,
+                tail: !(index < data.length - 1),
                 textStyle: TextStyle(
                   fontSize: 16,
                   color: data[index].outgoing_id != user.user_id
