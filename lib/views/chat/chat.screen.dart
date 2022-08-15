@@ -24,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
         setState(() {
           _isLoading = false;
         });
-      });
+      }).catchError((e) {});
     }
     _isInit = false;
     super.didChangeDependencies();
