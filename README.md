@@ -4,13 +4,24 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+If you receive a cocoapods error just run these...
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+```bash
+sudo gem install -n /usr/local/bin cocoapods -v 1.8.4
+```
+
+
+if that does not work then you uninstall it then you run 
+
+```bash
+brew install cocoapods
+```
+
+And
+
+```bash
+brew link --overwrite cocoapods
+```
