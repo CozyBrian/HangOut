@@ -10,6 +10,7 @@ class DataProvider with ChangeNotifier {
   final String? _accessToken;
   final String? _user_id;
   String? _username;
+  bool isInit = false;
 
   List<User> _users;
   List<User> _conversations;
@@ -50,6 +51,11 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> getUsers() async {
+    if (await getConnection() && isInit) {
+      return;
+    } else {
+      isInit = false;
+    }
     try {
       _users = [];
       var url = Uri.parse("http://localhost:3000/v1/users/");
@@ -78,6 +84,7 @@ class DataProvider with ChangeNotifier {
       });
       getConversations();
       notifyListeners();
+      isInit = true;
     } catch (e) {
       rethrow;
     }
