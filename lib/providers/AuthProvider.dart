@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:hangout/utils/http-exception.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +50,7 @@ class AuthProvider with ChangeNotifier {
       final responseData = json.decode(response.body);
 
       if (responseData['error'] != null) {
-        //throw HttpException(responseData['error']['message']);
+        throw HttpException(responseData['error']);
       }
 
       _accessToken = responseData['accessToken'];
@@ -68,7 +69,7 @@ class AuthProvider with ChangeNotifier {
       });
       prefs.setString('userData', userData);
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 

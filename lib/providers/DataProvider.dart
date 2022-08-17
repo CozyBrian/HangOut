@@ -51,7 +51,11 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> getUsers() async {
-    if (isInit) return;
+    if (await getConnection() && isInit) {
+      return;
+    } else {
+      isInit = false;
+    }
     try {
       _users = [];
       var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
