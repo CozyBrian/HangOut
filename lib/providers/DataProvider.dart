@@ -51,9 +51,11 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> getUsers() async {
-    if (await getConnection() && isInit) {
+    if (isInit) {
       return;
-    } else {
+    }
+
+    if (!(await getConnection())) {
       isInit = false;
     }
     try {
@@ -88,6 +90,42 @@ class DataProvider with ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> getRandomUsers() async {
+    print('random');
+    // try {
+    //   _users = [];
+    //   var url = Uri.parse("http://localhost:3000/v1/users/");
+    //   Map<String, String> customHeaders = {
+    //     "content-type": "application/json",
+    //     "Authorization": "Bearer $_accessToken"
+    //   };
+
+    //   final response = await http.get(
+    //     url,
+    //     headers: customHeaders,
+    //   );
+
+    //   final responseData = json.decode(response.body);
+
+    //   // if (responseData['error'] != null) {
+    //   //   throw HttpException(responseData['error']);
+    //   // }
+    //   responseData.forEach((element) {
+    //     var user = User(element['user_id'], element['username']);
+    //     if (user.user_id == _user_id) {
+    //       _username = user.username;
+    //       return;
+    //     }
+    //     _users.add(user);
+    //   });
+    //   getConversations();
+    //   notifyListeners();
+    //   isInit = true;
+    // } catch (e) {
+    //   rethrow;
+    // }
   }
 
   void clearMessages() {

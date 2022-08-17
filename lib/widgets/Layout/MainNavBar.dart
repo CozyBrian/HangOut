@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/providers/DataProvider.dart';
+import 'package:provider/provider.dart';
 
 class MainNavBar extends StatelessWidget {
   final String title;
@@ -31,6 +33,17 @@ class MainNavBar extends StatelessWidget {
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Provider.of<DataProvider>(context, listen: false)
+                        .getRandomUsers();
+                  },
+                  icon: Icon(
+                    Icons.refresh,
+                    size: 30,
+                    color: isDark ? Colors.black : Colors.white,
                   ),
                 ),
                 IconButton(
