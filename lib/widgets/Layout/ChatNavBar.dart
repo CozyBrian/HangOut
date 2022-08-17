@@ -30,12 +30,15 @@ class ChatNavBar extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                Container(
-                  height: 35,
-                  width: 35,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.blue,
+                Hero(
+                  tag: title,
+                  child: Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.blue,
+                    ),
                   ),
                 ),
                 Expanded(

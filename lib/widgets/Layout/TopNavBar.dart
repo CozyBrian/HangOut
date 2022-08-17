@@ -33,12 +33,15 @@ class TopNavBar extends StatelessWidget {
                       vertical: 4,
                     ),
                     width: double.infinity,
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                    child: Hero(
+                      tag: 'Header',
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

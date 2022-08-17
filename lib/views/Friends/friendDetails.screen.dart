@@ -17,12 +17,33 @@ class FriendDetailScreen extends StatelessWidget {
             TopNavBar(title: user.username),
             Column(
               children: [
-                Container(
-                  height: 250,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(200),
-                    color: Colors.blue,
+                Hero(
+                  tag: user.user_id,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    height: 250,
+                    width: 250,
+                    decoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(200),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.1),
+                            blurRadius: 12,
+                            spreadRadius: 0,
+                            offset: Offset(
+                              0,
+                              4,
+                            ),
+                          ),
+                        ]),
+                    child: Center(
+                      child: Text(
+                        user.username[0],
+                        style:
+                            const TextStyle(fontSize: 100, color: Colors.white),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),

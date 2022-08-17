@@ -30,17 +30,20 @@ class ChatListTile extends StatelessWidget {
           ],
         ),
         child: ListTile(
-          leading: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Colors.blue,
-            ),
-            child: Center(
-              child: Text(
-                user.username[0],
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+          leading: Hero(
+            tag: user.username,
+            child: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.blue,
+              ),
+              child: Center(
+                child: Text(
+                  user.username[0],
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
             ),
           ),
