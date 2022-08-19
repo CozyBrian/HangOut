@@ -109,7 +109,7 @@ class DataProvider with ChangeNotifier {
     print('random');
     // try {
     //   _users = [];
-    //   var url = Uri.parse("http://localhost:3000/v1/users/");
+    //   var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
     //   Map<String, String> customHeaders = {
     //     "content-type": "application/json",
     //     "Authorization": "Bearer $_accessToken"
@@ -148,7 +148,8 @@ class DataProvider with ChangeNotifier {
 
   Future<void> addFriend(String id) async {
     try {
-      var url = Uri.parse("http://localhost:3000/v1/users/friends/$id");
+      var url = Uri.parse(
+          "https://tesla-hangout-app.herokuapp.com/v1/users/friends/$id");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
@@ -177,7 +178,8 @@ class DataProvider with ChangeNotifier {
     try {
       _friends = [];
 
-      var url = Uri.parse("http://localhost:3000/v1/users/friends");
+      var url =
+          Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/friends");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
