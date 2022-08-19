@@ -73,10 +73,12 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signUp(String username, String email, String password) async {
+    if (username.isEmpty || email.isEmpty || password.isEmpty) return;
     return _authenticate(username, email, password, "signUp");
   }
 
   Future<void> login(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) return;
     return _authenticate(null, email, password, "signIn");
   }
 
