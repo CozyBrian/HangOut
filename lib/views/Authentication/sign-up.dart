@@ -42,6 +42,8 @@ class _SignUpViewState extends State<SignUpView> {
       var errorMessage = 'Authentication failed!';
       if (error.toString().contains('Connection refused')) {
         errorMessage = 'Client is Offline!';
+      } else if (error.toString().contains("EMAIL_ALREADY_EXISTS")) {
+        errorMessage = "User with email already exists.";
       }
       _showErrorDialog(errorMessage);
     }).then((value) {
@@ -75,6 +77,12 @@ class _SignUpViewState extends State<SignUpView> {
             child: TextFormField(
               style: const TextStyle(fontSize: 20),
               cursorColor: Colors.black,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Username cannot be empty!';
+                }
+                return null;
+              },
               onSaved: (value) {
                 _authData['username'] = value!;
               },

@@ -26,14 +26,16 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider.value(value: AuthProvider()),
           ChangeNotifierProxyProvider<AuthProvider, DataProvider>(
-            create: (_) => DataProvider('', '', '', [], [], []),
+            create: (_) => DataProvider('', '', '', [], [], [], []),
             update: ((context, auth, previous) => DataProvider(
-                auth.userId,
-                previous!.username,
-                auth.token,
-                previous.users,
-                previous.messages,
-                previous.conversations)),
+                  auth.userId,
+                  previous!.username,
+                  auth.token,
+                  previous.users,
+                  previous.friends,
+                  previous.messages,
+                  previous.conversations,
+                )),
           ),
         ],
         child: Consumer<AuthProvider>(

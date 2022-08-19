@@ -26,12 +26,15 @@ class MainNavBar extends StatelessWidget {
                       vertical: 4,
                     ),
                     width: double.infinity,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                          color: isDark ? Colors.black : Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                    child: Hero(
+                      tag: 'Header',
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                            color: isDark ? Colors.black : Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
