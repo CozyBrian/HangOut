@@ -32,7 +32,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<DataProvider>(context).users;
+    final data = Provider.of<DataProvider>(context).friends;
     return Stack(children: [
       const BackGroundImage(image: "assets/images/home2.jpg"),
       Column(

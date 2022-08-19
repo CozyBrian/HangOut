@@ -13,11 +13,16 @@ class DataProvider with ChangeNotifier {
   bool isInit = false;
 
   List<User> _users;
+  List<User> _friends;
   List<User> _conversations;
   List<Message> _messages;
 
   List<User> get users {
     return _users;
+  }
+
+  List<User> get friends {
+    return _friends;
   }
 
   String? get user_id {
@@ -36,8 +41,15 @@ class DataProvider with ChangeNotifier {
     return _messages;
   }
 
-  DataProvider(this._user_id, this._username, this._accessToken, this._users,
-      this._messages, this._conversations);
+  DataProvider(
+    this._user_id,
+    this._username,
+    this._accessToken,
+    this._users,
+    this._friends,
+    this._messages,
+    this._conversations,
+  );
 
   Future<bool> getConnection() async {
     try {
@@ -85,6 +97,7 @@ class DataProvider with ChangeNotifier {
         _users.add(user);
       });
       getConversations();
+      getFriends();
       notifyListeners();
       isInit = true;
     } catch (e) {
@@ -131,6 +144,67 @@ class DataProvider with ChangeNotifier {
   void clearMessages() {
     _messages = [];
     notifyListeners();
+  }
+
+  Future<void> addFriend(String id) async {
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/friends/$id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.post(
+        url,
+        headers: customHeaders,
+        body: json.encode(
+          {
+            "user_id": user_id,
+          },
+        ),
+      );
+
+      final responseData = json.decode(response.body);
+      getFriends();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> getFriends() async {
+    try {
+      _friends = [];
+
+      var url = Uri.parse("http://localhost:3000/v1/users/friends");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.post(
+        url,
+        headers: customHeaders,
+        body: json.encode(
+          {
+            "user_id": user_id,
+          },
+        ),
+      );
+
+      final responseData = json.decode(response.body);
+
+      responseData.forEach((element) {
+        var user = User(element['user_id'], element['username']);
+
+        _friends.add(user);
+      });
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getMessages(String incomingId) async {
