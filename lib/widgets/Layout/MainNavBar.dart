@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 class MainNavBar extends StatelessWidget {
   final String title;
   final bool isDark;
-  const MainNavBar({required this.title, this.isDark = false});
+  final bool isHome;
+  const MainNavBar(
+      {required this.title, this.isDark = false, this.isHome = false});
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +40,18 @@ class MainNavBar extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    Provider.of<DataProvider>(context, listen: false)
-                        .getRandomUsers();
-                  },
-                  icon: Icon(
-                    Icons.refresh,
-                    size: 30,
-                    color: isDark ? Colors.black : Colors.white,
+                if (isHome)
+                  IconButton(
+                    onPressed: () {
+                      Provider.of<DataProvider>(context, listen: false)
+                          .getRandomUsers();
+                    },
+                    icon: Icon(
+                      Icons.refresh,
+                      size: 30,
+                      color: isDark ? Colors.black : Colors.white,
+                    ),
                   ),
-                ),
                 IconButton(
                   onPressed: () {
                     Scaffold.of(context).openDrawer();

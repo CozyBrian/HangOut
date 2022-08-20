@@ -103,7 +103,17 @@ class FriendDetailScreen extends StatelessWidget {
                                   onPressed: () {
                                     Provider.of<DataProvider>(context,
                                             listen: false)
-                                        .addFriend(user.user_id);
+                                        .addFriend(user.user_id)
+                                        .then((_) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.purple,
+                                          content: Text(
+                                              '${user.username} has been added to friends.'),
+                                        ),
+                                      );
+                                    });
                                   },
                                 ),
                               ),

@@ -17,6 +17,7 @@ class DataProvider with ChangeNotifier {
   List<User> _conversations;
   List<Message> _messages;
 
+  User user;
   List<User> get users {
     return _users;
   }
@@ -42,6 +43,7 @@ class DataProvider with ChangeNotifier {
   }
 
   DataProvider(
+    this.user,
     this._user_id,
     this._username,
     this._accessToken,
@@ -98,10 +100,33 @@ class DataProvider with ChangeNotifier {
       });
       getConversations();
       getFriends();
+      getUserProfile();
       notifyListeners();
       isInit = true;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> getUserProfile() async {
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/$user_id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
+
+      final responseData = json.decode(response.body)[0];
+
+      user = User(responseData['user_id'], responseData['username']);
+    } catch (e) {
+      print(e);
     }
   }
 
