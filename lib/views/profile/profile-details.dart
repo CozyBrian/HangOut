@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/widgets/Layout/Main-Drawer.dart';
 import 'package:hangout/widgets/Layout/MainNavBar.dart';
+import 'package:hangout/widgets/profile/profile-avatar.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -22,30 +23,11 @@ class UserProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
-                Container(
-                  height: 250,
-                  width: 250,
-                  decoration: BoxDecoration(
-                      color: Colors.deepPurple,
-                      borderRadius: BorderRadius.circular(200),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color.fromRGBO(0, 0, 0, 0.1),
-                          blurRadius: 12,
-                          spreadRadius: 0,
-                          offset: Offset(
-                            0,
-                            4,
-                          ),
-                        ),
-                      ]),
-                  child: Center(
-                    child: Text(
-                      user.username[0],
-                      style:
-                          const TextStyle(fontSize: 100, color: Colors.white),
-                    ),
-                  ),
+                GestureDetector(
+                  child: ProfileAvatar(user: user),
+                  onTap: () {
+                    print("tapped");
+                  },
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -55,6 +37,7 @@ class UserProfileScreen extends StatelessWidget {
                 const Divider(),
                 Form(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextFormField(
                         decoration:
@@ -81,9 +64,27 @@ class UserProfileScreen extends StatelessWidget {
                         },
                         onFieldSubmitted: ((value) {}),
                       ),
+                      Container(
+                        width: 120,
+                        margin: const EdgeInsets.only(top: 28),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 245, 187, 255),
+                        ),
+                        child: TextButton(
+                          child: const Text(
+                            "Save",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.purple,
+                            ),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

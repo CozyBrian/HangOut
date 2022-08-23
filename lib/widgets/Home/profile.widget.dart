@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/user.dart';
 import 'package:hangout/views/Friends/friendDetails.screen.dart';
+import 'package:hangout/widgets/profile/profile-avatar.dart';
 
 class Profile extends StatelessWidget {
   final User user;
@@ -34,34 +35,10 @@ class Profile extends StatelessWidget {
             child: Column(
               children: [
                 Hero(
-                  tag: user.user_id,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    height: 250,
-                    width: 250,
-                    decoration: BoxDecoration(
-                        color: Colors.deepPurple,
-                        borderRadius: BorderRadius.circular(200),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color.fromRGBO(0, 0, 0, 0.1),
-                            blurRadius: 12,
-                            spreadRadius: 0,
-                            offset: Offset(
-                              0,
-                              4,
-                            ),
-                          ),
-                        ]),
-                    child: Center(
-                      child: Text(
-                        user.username[0],
-                        style:
-                            const TextStyle(fontSize: 100, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
+                    tag: user.user_id,
+                    child: ProfileAvatar(
+                      user: user,
+                    )),
                 const SizedBox(height: 20),
                 Text(
                   user.username,
