@@ -64,6 +64,35 @@ class DataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> getUserDetails() async {
+    if (isInit) {
+      return;
+    }
+
+    if (!(await getConnection())) {
+      isInit = false;
+    }
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/$_user_id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
+
+      final responseData = json.decode(response.body)[0];
+
+      _username = responseData['username'];
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> getUsers() async {
     if (isInit) {
       return;

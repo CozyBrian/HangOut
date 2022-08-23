@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/user.dart';
 
 class ProfileAvatar extends StatelessWidget {
   User user;
-  ProfileAvatar({required this.user});
+  File? image;
+  ProfileAvatar({required this.user, this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +27,14 @@ class ProfileAvatar extends StatelessWidget {
               ),
             ),
           ]),
-      child: Center(
-        child: Text(
-          user.username[0],
-          style: const TextStyle(fontSize: 100, color: Colors.white),
-        ),
-      ),
+      child: image != null
+          ? Image.file(image as File)
+          : Center(
+              child: Text(
+                user.username[0],
+                style: const TextStyle(fontSize: 100, color: Colors.white),
+              ),
+            ),
     );
   }
 }

@@ -1,12 +1,32 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/widgets/Layout/Main-Drawer.dart';
 import 'package:hangout/widgets/Layout/MainNavBar.dart';
 import 'package:hangout/widgets/profile/profile-avatar.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
   static const routeName = "/user-profile-screen";
+
+  @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  final ImagePicker _picker = ImagePicker();
+  late File _pickedImage;
+
+  void _pickImage() async {
+    final pickedImageFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _pickedImage = pickedImageFile as File;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +44,8 @@ class UserProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 GestureDetector(
+                  onTap: _pickImage,
                   child: ProfileAvatar(user: user),
-                  onTap: () {
-                    print("tapped");
-                  },
                 ),
                 const SizedBox(height: 10),
                 Text(

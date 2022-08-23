@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
+      Provider.of<DataProvider>(context).getUserDetails();
       Provider.of<DataProvider>(context).getUsers().then((_) {
         setState(() {
           _isLoading = false;
