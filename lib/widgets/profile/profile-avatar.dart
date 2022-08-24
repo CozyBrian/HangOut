@@ -6,15 +6,28 @@ import 'package:hangout/Models/user.dart';
 class ProfileAvatar extends StatelessWidget {
   User user;
   File? image;
-  ProfileAvatar({required this.user, this.image});
+  ProfileAvatar({
+    required this.user,
+    this.image,
+  });
+
+  ImageProvider<Object>? myImage() {
+    if (image != null) {
+      return FileImage(image!);
+    } else {
+      if (user.profileImage != null) {
+        return NetworkImage(user.profileImage!);
+      }
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: 125,
-      backgroundImage:
-          user.profileImage != null ? NetworkImage(user.profileImage!) : null,
-      child: user.profileImage != null
+      backgroundImage: myImage(),
+      child: myImage() != null
           ? null
           : Center(
               child: Text(

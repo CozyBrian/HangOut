@@ -89,6 +89,12 @@ class DataProvider with ChangeNotifier {
       final responseData = json.decode(response.body)[0];
 
       _username = responseData['username'];
+      user = User(
+        responseData['user_id'],
+        responseData['username'],
+        responseData['profileImage'],
+        responseData['about'],
+      );
     } catch (e) {
       print(e);
     }
@@ -173,7 +179,7 @@ class DataProvider with ChangeNotifier {
   Future<void> getRandomUsers() async {
     try {
       _users = [];
-      var url = Uri.parse("http://localhost:3000/v1/users/random");
+      var url = Uri.parse("http://localhost:3000/v1/users/");
       Map<String, String> customHeaders = {
         "content-type": "application/json",
         "Authorization": "Bearer $_accessToken"
@@ -385,6 +391,7 @@ class DataProvider with ChangeNotifier {
   Future<void> getConversations() async {
     try {
       var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
+      var url2 = Uri.parse("http://localhost:3000/v1/users/");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
@@ -395,21 +402,40 @@ class DataProvider with ChangeNotifier {
         url,
         headers: customHeaders,
       );
+      final response2 = await http.get(
+        url2,
+        headers: customHeaders,
+      );
 
       final responseData = json.decode(response.body);
+      final responseData2 = json.decode(response2.body);
 
       // if (responseData['error'] != null) {
       //   throw HttpException(responseData['error']);
       // }
 
       _conversations = [];
-      for (var element in _users) {
+      responseData2.forEach((element) {
         responseData.forEach((item) {
-          if (element.user_id == item['user_id']) {
-            conversations.add(element);
+          if (element['user_id'] == item['user_id']) {
+            var user = User(
+              element['user_id'],
+              element['username'],
+              element['profile_image'],
+              element['about'],
+            );
+            conversations.add(user);
           }
         });
-      }
+      });
+
+      // for (var element in _users) {
+      //   responseData.forEach((item) {
+      //     if (element.user_id == item['user_id']) {
+      //       conversations.add(element);
+      //     }
+      //   });
+      // }
       notifyListeners();
     } catch (e) {
       rethrow;

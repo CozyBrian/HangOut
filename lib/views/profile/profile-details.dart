@@ -20,6 +20,25 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   final aboutController = TextEditingController();
   File? _pickedImage;
 
+  var _isInit = true;
+  final _isOffline = false;
+  var _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<DataProvider>(context).getUserDetails().then((value) {
+        aboutController.text =
+            Provider.of<DataProvider>(context, listen: false).user.about!;
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   void _pickImage() async {
     final pickedImageFile =
         await _picker.pickImage(source: ImageSource.gallery);
