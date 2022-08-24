@@ -3,6 +3,7 @@ import 'package:hangout/Models/user.dart';
 import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/views/chat/directChat.screen.dart';
 import 'package:hangout/widgets/Layout/TopNavBar.dart';
+import 'package:hangout/widgets/profile/profile-avatar.dart';
 import 'package:provider/provider.dart';
 
 class FriendDetailScreen extends StatelessWidget {
@@ -24,34 +25,10 @@ class FriendDetailScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Hero(
-                        tag: user.user_id,
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          height: 250,
-                          width: 250,
-                          decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(200),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                                  blurRadius: 12,
-                                  spreadRadius: 0,
-                                  offset: Offset(
-                                    0,
-                                    4,
-                                  ),
-                                ),
-                              ]),
-                          child: Center(
-                            child: Text(
-                              user.username[0],
-                              style: const TextStyle(
-                                  fontSize: 100, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
+                          tag: user.user_id,
+                          child: ProfileAvatar(
+                            user: user,
+                          )),
                       const SizedBox(height: 10),
                       Text(
                         user.username,
@@ -103,7 +80,17 @@ class FriendDetailScreen extends StatelessWidget {
                                   onPressed: () {
                                     Provider.of<DataProvider>(context,
                                             listen: false)
-                                        .addFriend(user.user_id);
+                                        .addFriend(user.user_id)
+                                        .then((_) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Colors.purple,
+                                          content: Text(
+                                              '${user.username} has been added to friends.'),
+                                        ),
+                                      );
+                                    });
                                   },
                                 ),
                               ),
@@ -118,14 +105,16 @@ class FriendDetailScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "About",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Culpa ex commodo id cupidatat minim. Laborum occaecat anim deserunt proident cillum duis mollit consequat in qui officia aute officia. Veniam quis et velit id in aliquip adipisicing culpa. Nostrud cillum mollit sit culpa duis.",
+                        user.about != null
+                            ? user.about as String
+                            : "This is a bio!",
                       ),
                     ],
                   ),

@@ -14,7 +14,7 @@ class DirectChatScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          ChatNavBar(title: RouteArgs.username),
+          ChatNavBar(user: RouteArgs),
           MessageList(),
           ChatInputBar(RouteArgs),
         ],

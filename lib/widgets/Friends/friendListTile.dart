@@ -21,16 +21,13 @@ class FriendListTile extends StatelessWidget {
           child: Row(
             children: [
               Hero(
-                tag: user.user_id,
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
+                  tag: user.user_id,
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundImage: user.profileImage != null
+                        ? NetworkImage(user.profileImage!)
+                        : null,
+                  )),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
@@ -43,7 +40,9 @@ class FriendListTile extends StatelessWidget {
                           fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 6),
-                    const Text("This is just a stasus"),
+                    Text(
+                      user.about != null ? user.about as String : "Cool bio!",
+                    ),
                   ],
                 ),
               )

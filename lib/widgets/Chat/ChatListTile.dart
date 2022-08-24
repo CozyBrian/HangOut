@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/user.dart';
+import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/views/chat/directChat.screen.dart';
+import 'package:provider/provider.dart';
 
 class ChatListTile extends StatelessWidget {
   final User user;
@@ -32,23 +34,24 @@ class ChatListTile extends StatelessWidget {
         child: ListTile(
           leading: Hero(
             tag: user.username,
-            child: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.blue,
-              ),
-              child: Center(
-                child: Text(
-                  user.username[0],
-                  style: const TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
+            child: CircleAvatar(
+              radius: 25,
+              backgroundImage: user.profileImage != null
+                  ? NetworkImage(user.profileImage!)
+                  : null,
+              child: user.profileImage != null
+                  ? null
+                  : Center(
+                      child: Text(
+                        user.username[0],
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
             ),
           ),
           title: Text(user.username),
-          subtitle: const Text("Okay Messasge here"),
+          subtitle: const Text("Tap to View"),
         ),
       ),
     );

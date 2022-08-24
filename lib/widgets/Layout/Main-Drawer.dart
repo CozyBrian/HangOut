@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hangout/providers/AuthProvider.dart';
 import 'package:hangout/views/Main.screen.dart';
 import 'package:hangout/views/Settings/settings.screen.dart';
+import 'package:hangout/views/profile/profile-details.dart';
 import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -42,7 +43,8 @@ class MainDrawer extends StatelessWidget {
                 leading: const Icon(Icons.person),
                 title: const Text("Profile"),
                 onTap: () {
-                  //Navigator.of(context).pushReplacementNamed("/");
+                  Navigator.of(context)
+                      .pushReplacementNamed(UserProfileScreen.routeName);
                 },
               ),
               ListTile(

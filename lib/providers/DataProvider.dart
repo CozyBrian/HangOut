@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class DataProvider with ChangeNotifier {
   List<User> _conversations;
   List<Message> _messages;
 
+  User user;
   List<User> get users {
     return _users;
   }
@@ -42,6 +44,7 @@ class DataProvider with ChangeNotifier {
   }
 
   DataProvider(
+    this.user,
     this._user_id,
     this._username,
     this._accessToken,
@@ -62,6 +65,41 @@ class DataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> getUserDetails() async {
+    if (isInit) {
+      return;
+    }
+
+    if (!(await getConnection())) {
+      isInit = false;
+    }
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/$_user_id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
+
+      final responseData = json.decode(response.body)[0];
+
+      _username = responseData['username'];
+      user = User(
+        responseData['user_id'],
+        responseData['username'],
+        responseData['profileImage'],
+        responseData['about'],
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> getUsers() async {
     if (isInit) {
       return;
@@ -72,7 +110,11 @@ class DataProvider with ChangeNotifier {
     }
     try {
       _users = [];
+<<<<<<< HEAD
       var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
+=======
+      var url = Uri.parse("http://localhost:3000/v1/users/random");
+>>>>>>> dev
       Map<String, String> customHeaders = {
         "content-type": "application/json",
         "Authorization": "Bearer $_accessToken"
@@ -89,7 +131,12 @@ class DataProvider with ChangeNotifier {
       //   throw HttpException(responseData['error']);
       // }
       responseData.forEach((element) {
-        var user = User(element['user_id'], element['username']);
+        var user = User(
+          element['user_id'],
+          element['username'],
+          element['profile_image'],
+          element['about'],
+        );
         if (user.user_id == _user_id) {
           _username = user.username;
           return;
@@ -98,6 +145,7 @@ class DataProvider with ChangeNotifier {
       });
       getConversations();
       getFriends();
+      getUserProfile();
       notifyListeners();
       isInit = true;
     } catch (e) {
@@ -105,7 +153,35 @@ class DataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> getUserProfile() async {
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/$user_id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
+
+      final responseData = json.decode(response.body)[0];
+
+      user = User(
+        responseData['user_id'],
+        responseData['username'],
+        responseData['profile_image'],
+        responseData['about'],
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> getRandomUsers() async {
+<<<<<<< HEAD
     print('random');
     // try {
     //   _users = [];
@@ -139,6 +215,45 @@ class DataProvider with ChangeNotifier {
     // } catch (e) {
     //   rethrow;
     // }
+=======
+    try {
+      _users = [];
+      var url = Uri.parse("http://localhost:3000/v1/users/random");
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.get(
+        url,
+        headers: customHeaders,
+      );
+
+      final responseData = json.decode(response.body);
+
+      // if (responseData['error'] != null) {
+      //   throw HttpException(responseData['error']);
+      // }
+      responseData.forEach((element) {
+        var user = User(
+          element['user_id'],
+          element['username'],
+          element['profile_image'],
+          element['about'],
+        );
+        if (user.user_id == _user_id) {
+          _username = user.username;
+          return;
+        }
+        _users.add(user);
+      });
+      //getConversations();
+      notifyListeners();
+      //isInit = true;
+    } catch (e) {
+      rethrow;
+    }
+>>>>>>> dev
   }
 
   void clearMessages() {
@@ -174,6 +289,37 @@ class DataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> setUserDetails(String? about, File? image) async {
+    // final ref = FirebaseStorage.instance.ref().child('profile_image').child(_user_id + '.jpg');
+    // await ref.putFile(image).onComplete;
+    // final imageUrl = await ref.getDownloadURL;
+
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/$_user_id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.put(
+        url,
+        headers: customHeaders,
+        body: json.encode(
+          {
+            "about": about,
+            // "profileImage": imageUrl,
+          },
+        ),
+      );
+
+      final responseData = json.decode(response.body);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> getFriends() async {
     try {
       _friends = [];
@@ -199,7 +345,12 @@ class DataProvider with ChangeNotifier {
       final responseData = json.decode(response.body);
 
       responseData.forEach((element) {
-        var user = User(element['user_id'], element['username']);
+        var user = User(
+          element['user_id'],
+          element['username'],
+          element['profile_image'],
+          element['about'],
+        );
 
         _friends.add(user);
       });
@@ -277,12 +428,18 @@ class DataProvider with ChangeNotifier {
 
     _messages = [];
     getMessages(incomingId);
+    notifyListeners();
   }
 
   Future<void> getConversations() async {
     try {
+<<<<<<< HEAD
       var url = Uri.parse(
           "https://tesla-hangout-app.herokuapp.com/v1/messages/$user_id");
+=======
+      var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
+      var url2 = Uri.parse("http://localhost:3000/v1/users/");
+>>>>>>> dev
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
@@ -293,21 +450,40 @@ class DataProvider with ChangeNotifier {
         url,
         headers: customHeaders,
       );
+      final response2 = await http.get(
+        url2,
+        headers: customHeaders,
+      );
 
       final responseData = json.decode(response.body);
+      final responseData2 = json.decode(response2.body);
 
       // if (responseData['error'] != null) {
       //   throw HttpException(responseData['error']);
       // }
 
       _conversations = [];
-      for (var element in _users) {
+      responseData2.forEach((element) {
         responseData.forEach((item) {
-          if (element.user_id == item['user_id']) {
-            conversations.add(element);
+          if (element['user_id'] == item['user_id']) {
+            var user = User(
+              element['user_id'],
+              element['username'],
+              element['profile_image'],
+              element['about'],
+            );
+            conversations.add(user);
           }
         });
-      }
+      });
+
+      // for (var element in _users) {
+      //   responseData.forEach((item) {
+      //     if (element.user_id == item['user_id']) {
+      //       conversations.add(element);
+      //     }
+      //   });
+      // }
       notifyListeners();
     } catch (e) {
       rethrow;

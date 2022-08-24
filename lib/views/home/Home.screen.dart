@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isLoading = true;
       });
+      Provider.of<DataProvider>(context).getUserDetails();
       Provider.of<DataProvider>(context).getUsers().then((_) {
         setState(() {
           _isLoading = false;
@@ -33,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _isOffline = true;
         });
       });
-      Provider.of<DataProvider>(context).getConversations().catchError((e) {});
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           MainNavBar(
             title: "Hello ${data.username}",
             isDark: true,
+            isHome: true,
           ),
           if (!_isOffline) const SizedBox(height: 100),
           _isOffline

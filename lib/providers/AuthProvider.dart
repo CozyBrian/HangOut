@@ -112,7 +112,7 @@ class AuthProvider with ChangeNotifier {
     _refreshToken = extractedUserData['refreshToken'];
     _user_id = extractedUserData['user_id'];
     notifyListeners();
-    _autoLogout();
+    //_autoLogout();
     return true;
   }
 

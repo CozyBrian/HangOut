@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "19822113299",
+    "firebase_url": "https://flutter-apps-da629-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "flutter-apps-da629",
+    "storage_bucket": "flutter-apps-da629.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19822113299:android:001f50d7404b29c11cc5e6",
+        "android_client_info": {
+          "package_name": "tech.briannewton.hangout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19822113299-mbkk3bm1jvm0tds2qar4etajcnlakv39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATBoz-Ah8isQ9rvGCajInw9KOGKF4TkZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19822113299-mbkk3bm1jvm0tds2qar4etajcnlakv39.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19822113299-l14c3jlk1ubv8f9gj15ej2pl1j9289a2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "tech.briannewton.hangout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
