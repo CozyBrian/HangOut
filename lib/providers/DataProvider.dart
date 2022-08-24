@@ -74,7 +74,8 @@ class DataProvider with ChangeNotifier {
       isInit = false;
     }
     try {
-      var url = Uri.parse("http://localhost:3000/v1/users/$_user_id");
+      var url = Uri.parse(
+          "https://tesla-hangout-app.herokuapp.com/v1/users/$_user_id");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
@@ -110,11 +111,8 @@ class DataProvider with ChangeNotifier {
     }
     try {
       _users = [];
-<<<<<<< HEAD
-      var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
-=======
-      var url = Uri.parse("http://localhost:3000/v1/users/random");
->>>>>>> dev
+      var url =
+          Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/random");
       Map<String, String> customHeaders = {
         "content-type": "application/json",
         "Authorization": "Bearer $_accessToken"
@@ -155,7 +153,8 @@ class DataProvider with ChangeNotifier {
 
   Future<void> getUserProfile() async {
     try {
-      var url = Uri.parse("http://localhost:3000/v1/users/$user_id");
+      var url = Uri.parse(
+          "https://tesla-hangout-app.herokuapp.com/v1/users/$user_id");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
@@ -181,44 +180,10 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> getRandomUsers() async {
-<<<<<<< HEAD
-    print('random');
-    // try {
-    //   _users = [];
-    //   var url = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
-    //   Map<String, String> customHeaders = {
-    //     "content-type": "application/json",
-    //     "Authorization": "Bearer $_accessToken"
-    //   };
-
-    //   final response = await http.get(
-    //     url,
-    //     headers: customHeaders,
-    //   );
-
-    //   final responseData = json.decode(response.body);
-
-    //   // if (responseData['error'] != null) {
-    //   //   throw HttpException(responseData['error']);
-    //   // }
-    //   responseData.forEach((element) {
-    //     var user = User(element['user_id'], element['username']);
-    //     if (user.user_id == _user_id) {
-    //       _username = user.username;
-    //       return;
-    //     }
-    //     _users.add(user);
-    //   });
-    //   getConversations();
-    //   notifyListeners();
-    //   isInit = true;
-    // } catch (e) {
-    //   rethrow;
-    // }
-=======
     try {
       _users = [];
-      var url = Uri.parse("http://localhost:3000/v1/users/random");
+      var url =
+          Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/random");
       Map<String, String> customHeaders = {
         "content-type": "application/json",
         "Authorization": "Bearer $_accessToken"
@@ -253,7 +218,6 @@ class DataProvider with ChangeNotifier {
     } catch (e) {
       rethrow;
     }
->>>>>>> dev
   }
 
   void clearMessages() {
@@ -295,7 +259,8 @@ class DataProvider with ChangeNotifier {
     // final imageUrl = await ref.getDownloadURL;
 
     try {
-      var url = Uri.parse("http://localhost:3000/v1/users/$_user_id");
+      var url = Uri.parse(
+          "https://tesla-hangout-app.herokuapp.com/v1/users/$_user_id");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
@@ -433,13 +398,9 @@ class DataProvider with ChangeNotifier {
 
   Future<void> getConversations() async {
     try {
-<<<<<<< HEAD
       var url = Uri.parse(
           "https://tesla-hangout-app.herokuapp.com/v1/messages/$user_id");
-=======
-      var url = Uri.parse("http://localhost:3000/v1/messages/$user_id");
-      var url2 = Uri.parse("http://localhost:3000/v1/users/");
->>>>>>> dev
+      var url2 = Uri.parse("https://tesla-hangout-app.herokuapp.com/v1/users/");
 
       Map<String, String> customHeaders = {
         "content-type": "application/json",
