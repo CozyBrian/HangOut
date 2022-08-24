@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hangout/Models/user.dart';
@@ -12,11 +13,13 @@ import 'package:hangout/views/profile/profile-details.dart';
 import 'package:provider/provider.dart';
 import './views/Authentication/authentication.screen.dart';
 
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarBrightness:
           Brightness.light // Dark == white status bar -- for IOS.
       ));
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
