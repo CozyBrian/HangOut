@@ -179,7 +179,7 @@ class DataProvider with ChangeNotifier {
   Future<void> getRandomUsers() async {
     try {
       _users = [];
-      var url = Uri.parse("http://localhost:3000/v1/users/");
+      var url = Uri.parse("http://localhost:3000/v1/users/random");
       Map<String, String> customHeaders = {
         "content-type": "application/json",
         "Authorization": "Bearer $_accessToken"
@@ -190,7 +190,6 @@ class DataProvider with ChangeNotifier {
         headers: customHeaders,
       );
 
-      print(response.body);
       final responseData = json.decode(response.body);
 
       // if (responseData['error'] != null) {
@@ -386,6 +385,7 @@ class DataProvider with ChangeNotifier {
 
     _messages = [];
     getMessages(incomingId);
+    notifyListeners();
   }
 
   Future<void> getConversations() async {

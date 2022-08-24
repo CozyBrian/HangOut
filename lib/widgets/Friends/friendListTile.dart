@@ -40,7 +40,9 @@ class FriendListTile extends StatelessWidget {
                           fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 6),
-                    const Text("This is just a stasus"),
+                    Text(
+                      user.about != null ? user.about as String : "Cool bio!",
+                    ),
                   ],
                 ),
               )

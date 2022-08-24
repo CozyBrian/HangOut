@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/user.dart';
+import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/views/chat/directChat.screen.dart';
+import 'package:provider/provider.dart';
 
 class ChatListTile extends StatelessWidget {
   final User user;
@@ -49,7 +51,7 @@ class ChatListTile extends StatelessWidget {
             ),
           ),
           title: Text(user.username),
-          subtitle: const Text("Okay Messasge here"),
+          subtitle: const Text("Tap to View"),
         ),
       ),
     );
