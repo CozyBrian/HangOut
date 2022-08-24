@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -120,7 +121,12 @@ class DataProvider with ChangeNotifier {
       //   throw HttpException(responseData['error']);
       // }
       responseData.forEach((element) {
-        var user = User(element['user_id'], element['username']);
+        var user = User(
+          element['user_id'],
+          element['username'],
+          element['profile_image'],
+          element['about'],
+        );
         if (user.user_id == _user_id) {
           _username = user.username;
           return;
@@ -153,7 +159,12 @@ class DataProvider with ChangeNotifier {
 
       final responseData = json.decode(response.body)[0];
 
-      user = User(responseData['user_id'], responseData['username']);
+      user = User(
+        responseData['user_id'],
+        responseData['username'],
+        responseData['profile_image'],
+        responseData['about'],
+      );
     } catch (e) {
       print(e);
     }
@@ -180,7 +191,12 @@ class DataProvider with ChangeNotifier {
       //   throw HttpException(responseData['error']);
       // }
       responseData.forEach((element) {
-        var user = User(element['user_id'], element['username']);
+        var user = User(
+          element['user_id'],
+          element['username'],
+          element['profile_image'],
+          element['about'],
+        );
         if (user.user_id == _user_id) {
           _username = user.username;
           return;
@@ -227,6 +243,37 @@ class DataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> setUserDetails(String? about, File? image) async {
+    // final ref = FirebaseStorage.instance.ref().child('profile_image').child(_user_id + '.jpg');
+    // await ref.putFile(image).onComplete;
+    // final imageUrl = await ref.getDownloadURL;
+
+    try {
+      var url = Uri.parse("http://localhost:3000/v1/users/$_user_id");
+
+      Map<String, String> customHeaders = {
+        "content-type": "application/json",
+        "Authorization": "Bearer $_accessToken"
+      };
+
+      final response = await http.put(
+        url,
+        headers: customHeaders,
+        body: json.encode(
+          {
+            "about": about,
+            // "profileImage": imageUrl,
+          },
+        ),
+      );
+
+      final responseData = json.decode(response.body);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> getFriends() async {
     try {
       _friends = [];
@@ -251,7 +298,12 @@ class DataProvider with ChangeNotifier {
       final responseData = json.decode(response.body);
 
       responseData.forEach((element) {
-        var user = User(element['user_id'], element['username']);
+        var user = User(
+          element['user_id'],
+          element['username'],
+          element['profile_image'],
+          element['about'],
+        );
 
         _friends.add(user);
       });

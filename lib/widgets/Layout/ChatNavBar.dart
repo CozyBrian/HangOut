@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hangout/Models/user.dart';
 import 'package:hangout/providers/DataProvider.dart';
 import 'package:provider/provider.dart';
 
 class ChatNavBar extends StatelessWidget {
-  final String title;
-  const ChatNavBar({required this.title});
+  final User user;
+  const ChatNavBar({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +32,21 @@ class ChatNavBar extends StatelessWidget {
                   ),
                 ),
                 Hero(
-                  tag: title,
-                  child: Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.blue,
-                    ),
+                  tag: user.username,
+                  child: CircleAvatar(
+                    radius: 17.5,
+                    backgroundImage: user.profileImage != null
+                        ? NetworkImage(user.profileImage!)
+                        : null,
+                    child: user.profileImage != null
+                        ? null
+                        : Center(
+                            child: Text(
+                              user.username[0],
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white),
+                            ),
+                          ),
                   ),
                 ),
                 Expanded(
@@ -48,7 +56,7 @@ class ChatNavBar extends StatelessWidget {
                     ),
                     width: double.infinity,
                     child: Text(
-                      title,
+                      user.username,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,

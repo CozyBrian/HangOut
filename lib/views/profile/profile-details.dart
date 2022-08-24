@@ -17,16 +17,21 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final ImagePicker _picker = ImagePicker();
-  late File _pickedImage;
+  final aboutController = TextEditingController();
+  File? _pickedImage;
 
   void _pickImage() async {
     final pickedImageFile =
         await _picker.pickImage(source: ImageSource.gallery);
 
+    final File imagefile = File(pickedImageFile!.path);
+
     setState(() {
-      _pickedImage = pickedImageFile as File;
+      _pickedImage = imagefile;
     });
   }
+
+  void _saveDetails(BuildContext context) async {}
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               children: [
                 GestureDetector(
                   onTap: _pickImage,
-                  child: ProfileAvatar(user: user),
+                  child: ProfileAvatar(
+                    user: user,
+                    image: _pickedImage,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -58,18 +66,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: "Username"),
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if ((value as String).isEmpty) {
-                            return "Please enter a value.";
-                          }
-                          return null;
-                        },
-                        onFieldSubmitted: ((value) {}),
-                      ),
-                      TextFormField(
                         decoration: const InputDecoration(labelText: "About"),
                         maxLines: 3,
                         minLines: 3,
@@ -80,7 +76,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           }
                           return null;
                         },
-                        onFieldSubmitted: ((value) {}),
+                        controller: aboutController,
                       ),
                       Container(
                         width: 120,
@@ -97,7 +93,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               color: Colors.purple,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<DataProvider>(context, listen: false)
+                                .setUserDetails(
+                                    aboutController.text.trim(), _pickedImage)
+                                .catchError((e) {
+                              print(e);
+                            });
+                          },
                         ),
                       ),
                     ],
