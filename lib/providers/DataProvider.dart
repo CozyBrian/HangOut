@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:hangout/Models/message.dart';
@@ -254,9 +255,12 @@ class DataProvider with ChangeNotifier {
   }
 
   Future<void> setUserDetails(String? about, File? image) async {
-    // final ref = FirebaseStorage.instance.ref().child('profile_image').child(_user_id + '.jpg');
-    // await ref.putFile(image).onComplete;
-    // final imageUrl = await ref.getDownloadURL;
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('profile_image')
+        .child('${_user_id!}.jpg');
+    await ref.putFile(image!).then((_) => null);
+    final imageUrl = await ref.getDownloadURL();
 
     try {
       var url = Uri.parse(
@@ -273,7 +277,7 @@ class DataProvider with ChangeNotifier {
         body: json.encode(
           {
             "about": about,
-            // "profileImage": imageUrl,
+            "profileImage": imageUrl,
           },
         ),
       );
