@@ -31,7 +31,10 @@ class _LoginViewState extends State<LoginView> {
     });
 
     Provider.of<AuthProvider>(context, listen: false)
-        .login(_authData['email'] as String, _authData['password'] as String)
+        .login(
+      _authData['email'] as String,
+      _authData['password'] as String,
+    )
         .catchError((error) {
       var errorMessage = 'Authentication failed!';
       if (error.toString().contains('WRONG_PASSWORD')) {
