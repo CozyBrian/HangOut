@@ -33,7 +33,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       Provider.of<DataProvider>(context).getUserDetails().then((value) {
         aboutController.text =
             Provider.of<DataProvider>(context, listen: false).user.about!;
-      });
+      }).then((value) => setState(() {
+            _isLoading = false;
+          }));
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -106,24 +108,37 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             color: const Color.fromARGB(255, 245, 187, 255),
                           ),
                           child: TextButton(
-                            child: const Text(
-                              "Save",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.purple,
-                              ),
-                            ),
+                            child: _isLoading
+                                ? const CircularProgressIndicator()
+                                : const Text(
+                                    "Save",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
                             onPressed: () {
+                              setState(() {
+                                _isLoading = true;
+                              });
                               Provider.of<DataProvider>(context, listen: false)
                                   .setUserDetails(
                                       aboutController.text.trim(), _pickedImage)
                                   .then((_) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
                                   backgroundColor: Colors.purple,
                                   content: Text('Details Saved.'),
                                 ));
                               }).catchError((e) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  backgroundColor: Colors.red,
+                                  content: Text('Error, Save Failed.'),
+                                ));
                                 print(e);
                               });
                             },
