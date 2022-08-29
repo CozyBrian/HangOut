@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hangout/Models/user.dart';
@@ -7,19 +6,19 @@ import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/views/Authentication/splash-screen.dart';
 import 'package:hangout/views/Friends/friendDetails.screen.dart';
 import 'package:hangout/views/Main.screen.dart';
+import 'package:hangout/views/Settings/about.screen.dart';
+import 'package:hangout/views/Settings/account.screen.dart';
 import 'package:hangout/views/Settings/settings.screen.dart';
 import 'package:hangout/views/chat/directChat.screen.dart';
 import 'package:hangout/views/profile/profile-details.dart';
 import 'package:provider/provider.dart';
 import './views/Authentication/authentication.screen.dart';
 
-void main() async {
+void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
       statusBarBrightness:
           Brightness.light // Dark == white status bar -- for IOS.
       ));
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -68,6 +67,8 @@ class MyApp extends StatelessWidget {
               FriendDetailScreen.routeName: (context) => FriendDetailScreen(),
               DirectChatScreen.routeName: (context) => DirectChatScreen(),
               SettingsScreen.routeName: (context) => SettingsScreen(),
+              AboutScreen.routeName: (context) => const AboutScreen(),
+              AccountScreen.routeName: (context) => const AccountScreen(),
             },
           ),
         ));
