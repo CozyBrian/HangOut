@@ -6,6 +6,8 @@ import 'package:hangout/providers/DataProvider.dart';
 import 'package:hangout/views/Authentication/splash-screen.dart';
 import 'package:hangout/views/Friends/friendDetails.screen.dart';
 import 'package:hangout/views/Main.screen.dart';
+import 'package:hangout/views/Settings/about.screen.dart';
+import 'package:hangout/views/Settings/account.screen.dart';
 import 'package:hangout/views/Settings/settings.screen.dart';
 import 'package:hangout/views/chat/directChat.screen.dart';
 import 'package:hangout/views/profile/profile-details.dart';
@@ -65,6 +67,8 @@ class MyApp extends StatelessWidget {
               FriendDetailScreen.routeName: (context) => FriendDetailScreen(),
               DirectChatScreen.routeName: (context) => DirectChatScreen(),
               SettingsScreen.routeName: (context) => SettingsScreen(),
+              AboutScreen.routeName: (context) => const AboutScreen(),
+              AccountScreen.routeName: (context) => const AccountScreen(),
             },
           ),
         ));

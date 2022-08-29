@@ -57,20 +57,6 @@ class MainDrawer extends StatelessWidget {
               ),
             ],
           ),
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-              child: Center(
-                child: ListTile(
-                  leading: const Icon(Icons.door_back_door),
-                  title: const Text("LogOut"),
-                  onTap: () {
-                    data.logOut();
-                  },
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
